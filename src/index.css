@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Default palette (= ink colour at t=0); updated live by dynamicPalette.js */
+:root {
+  --brand-50: 306.2 92% 96%;
+  --brand-100: 306.2 92% 91%;
+  --brand-200: 306.2 92% 83%;
+  --brand-300: 306.2 92% 75%;
+  --brand-400: 306.2 92% 67%;
+  --brand-500: 306.2 92% 59%;
+  --brand-600: 306.2 92% 51%;
+  --brand-700: 306.2 92% 44%;
+  --brand-800: 306.2 92% 36%;
+  --brand-900: 306.2 92% 28%;
+  --glow-50: 344.2 95% 96%;
+  --glow-100: 344.2 95% 91%;
+  --glow-200: 344.2 95% 83%;
+  --glow-300: 344.2 95% 75%;
+  --glow-400: 344.2 95% 67%;
+  --glow-500: 344.2 95% 59%;
+  --glow-600: 344.2 95% 51%;
+  --glow-700: 344.2 95% 44%;
+  --glow-800: 344.2 95% 36%;
+  --glow-900: 344.2 95% 28%;
+  --gray-50: 306.2 24% 97%;
+  --gray-100: 306.2 24% 93%;
+  --gray-200: 306.2 24% 86%;
+  --gray-300: 306.2 24% 78%;
+  --gray-400: 306.2 24% 66%;
+  --gray-500: 306.2 24% 53%;
+  --gray-600: 306.2 24% 41%;
+  --gray-700: 306.2 24% 31%;
+  --gray-800: 306.2 30% 19%;
+  --gray-900: 306.2 30% 11%;
+  --gray-950: 306.2 30% 6%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-gray-50 font-sans text-gray-800 antialiased dark:bg-[#05060d] dark:text-gray-100;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  @apply font-display tracking-tight;
+}
+
+::selection {
+  @apply bg-brand-500/40 text-white;
+}
+
+/* Hide the native cursor where CustomCursor is active (text fields keep a caret) */
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+.has-custom-cursor input,
+.has-custom-cursor textarea {
+  cursor: text !important;
+}
+
+section[id] {
+  scroll-margin-top: 72px;
+}
+
+@layer components {
+  /* Name & highlight gradient — follows the live palette */
+  .gradient-text {
+    @apply bg-gradient-to-r from-brand-600 via-brand-500 to-glow-500 bg-clip-text text-transparent dark:from-glow-300 dark:via-brand-300 dark:to-brand-400;
+  }
+  .glass-card {
+    @apply border border-white/40 bg-white/60 backdrop-blur-md dark:border-white/10 dark:bg-black/50;
+  }
+  .btn-gradient {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-600 to-glow-600 px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-brand-500/40;
+  }
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Infinite tech-stack strip */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 45s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.caret {
+  animation: blink 1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .marquee-track,
+  .caret {
+    animation: none;
+  }
+}
